@@ -1,7 +1,7 @@
 #!/bin/sh
 
 CMD_MYSQL="mysql -u${MYSQL_USER} -p${MYSQL_PASSWORD} ${MYSQL_DATABASE}"
-$CMD_MYSQL -e "CREATE TABLE your_table_name (
+$CMD_MYSQL -e "CREATE TABLE items (
   id INT AUTO_INCREMENT PRIMARY KEY,
   title VARCHAR(255) NOT NULL,
   content TEXT,
