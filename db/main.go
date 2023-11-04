@@ -34,7 +34,7 @@ var db *sql.DB
 func init() {
 	// MySQLデータベースへの接続を初期化
 
-	// ①-1: 環境変数からMySQLのユーザー名、パスワード、データベース名を取得
+	// ①-1: 環境変数からMySQLのユーザー名、パスワード、データベース名,ホスト名を取得
 	mysqlUser := os.Getenv("MYSQL_USER")
 	mysqlUserPwd := os.Getenv("MYSQL_PASSWORD")
 	mysqlHost := os.Getenv("MYSQL_HOST")
