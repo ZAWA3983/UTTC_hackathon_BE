@@ -133,9 +133,14 @@ func main() {
 			w.WriteHeader(http.StatusMethodNotAllowed)
 		}
 	})))
+	
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8080"
+	}
 
-	log.Println("Server listening on :8080")
-	http.ListenAndServe(":8080", nil)
+	log.Println("Server listening on :" + port)
+	http.ListenAndServe(":"+port, nil)
 }
 
 // handleAddItem はPOSTリクエストを処理する関数
