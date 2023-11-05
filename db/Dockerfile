@@ -15,5 +15,9 @@ RUN go build -o app main.go
 # アプリケーションの起動コマンドを設定
 CMD ["./app"]
 
-# ポート8080の公開
-EXPOSE 8080
+# 環境変数 PORT からポート番号を取得
+ARG PORT=8080
+ENV PORT=$ {PORT:-8080} 
+
+# ポートの公開
+EXPOSE $PORT
