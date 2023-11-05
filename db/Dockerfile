@@ -1,5 +1,5 @@
-# ベースとなるDockerイメージを選択
-FROM golang:1.21
+# ベースとなるDockerイメージを選択 (Goのバージョンを指定)
+FROM golang:1.17
 
 # コンテナ内の作業ディレクトリを設定
 WORKDIR /app
@@ -12,12 +12,12 @@ COPY go.sum .
 # Goアプリケーションをビルド
 RUN go build -o app main.go
 
+# ポート番号を環境変数から取得
+ARG PORT=8080
+ENV PORT=$PORT
+
+# ポート番号によってエクスポーズするポートを設定
+EXPOSE $PORT
+
 # アプリケーションの起動コマンドを設定
 CMD ["./app"]
-
-# 環境変数 PORT からポート番号を取得
-ARG PORT=8080
-ENV PORT=$ {PORT:-8080} 
-
-# ポートの公開
-EXPOSE $PORT
