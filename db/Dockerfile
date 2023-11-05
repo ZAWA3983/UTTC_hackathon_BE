@@ -1,5 +1,5 @@
 # ベースとなるDockerイメージを選択
-FROM golang:1.18
+FROM golang:1.21
 
 # コンテナ内の作業ディレクトリを設定
 WORKDIR /app
@@ -8,9 +8,6 @@ WORKDIR /app
 COPY main.go .
 COPY go.mod .
 COPY go.sum .
-
-# Goモジュールをインストール
-RUN go mod download
 
 # Goアプリケーションをビルド
 RUN go build -o app main.go
