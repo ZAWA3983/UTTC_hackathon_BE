@@ -15,5 +15,5 @@ RUN go build -o app main.go
 # アプリケーションの起動コマンドを設定
 CMD ["./app"]
 
-# ポート8080を公開
+# ポート8080の公開
 EXPOSE 8080
