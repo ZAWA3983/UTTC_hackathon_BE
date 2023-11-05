@@ -193,7 +193,7 @@ func handleAddItem(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// 成功時のレスポンスを返す
-	w.Header().Set("Access-Control-Allow-Origin", "http://localhost:3000") // フロントエンドのオリジン
+	w.Header().Set("Access-Control-Allow-Origin", "https://uttc-hackathon-fe.vercel.app") // フロントエンドのオリジン
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusCreated)
 	responseData := map[string]string{"id": id}
@@ -299,7 +299,7 @@ func handleSearchItems(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// 検索結果をJSONレスポンスとして返す
-	w.Header().Set("Access-Control-Allow-Origin", "http://localhost:3000") // フロントエンドのオリジン
+	w.Header().Set("Access-Control-Allow-Origin", "https://uttc-hackathon-fe.vercel.app") // フロントエンドのオリジン
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
 	json.NewEncoder(w).Encode(items)
@@ -429,7 +429,7 @@ func MyItems(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// 検索結果をJSONレスポンスとして返す
-	w.Header().Set("Access-Control-Allow-Origin", "http://localhost:3000") // フロントエンドのオリジン
+	w.Header().Set("Access-Control-Allow-Origin", "https://uttc-hackathon-fe.vercel.app") // フロントエンドのオリジン
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
 	json.NewEncoder(w).Encode(items)
@@ -470,7 +470,7 @@ func handleUpdateItem(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// 成功時のレスポンスを返す
-	w.Header().Set("Access-Control-Allow-Origin", "http://localhost:3000") // フロントエンドのオリジン
+	w.Header().Set("Access-Control-Allow-Origin", "https://uttc-hackathon-fe.vercel.app") // フロントエンドのオリジン
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
 	responseData := map[string]string{"message": "更新が成功しました"}
@@ -502,7 +502,7 @@ func handleDeleteItem(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// 削除が成功した場合のレスポンスを返す
-	w.Header().Set("Access-Control-Allow-Origin", "http://localhost:3000")
+	w.Header().Set("Access-Control-Allow-Origin", "https://uttc-hackathon-fe.vercel.app")
 	w.WriteHeader(http.StatusOK)
 	responseData := map[string]string{"message": "削除が成功しました"}
 	json.NewEncoder(w).Encode(responseData)
