@@ -308,7 +308,7 @@ func handleSearchItems(w http.ResponseWriter, r *http.Request) {
 func CORS(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		// クロスオリジンリクエスト用のヘッダーを設定
-		w.Header().Set("Access-Control-Allow-Origin", "http://localhost:3000") // フロントエンドのオリジン
+		w.Header().Set("Access-Control-Allow-Origin", "https://uttc-hackathon-fe.vercel.app") // フロントエンドのオリジン
 		w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
 		w.Header().Set("Access-Control-Allow-Credentials", "true")
 		w.Header().Set("Access-Control-Allow-Methods", "POST,PUT,DELETE, OPTIONS") // クロスオリジンで許可するHTTPメソッド
