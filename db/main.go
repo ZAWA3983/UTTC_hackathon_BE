@@ -134,8 +134,8 @@ func main() {
 		}
 	})))
 
-	log.Println("Server listening on :8000")
-	http.ListenAndServe(":8000", nil)
+	log.Println("Server listening on :8080")
+	http.ListenAndServe(":8080", nil)
 }
 
 // handleAddItem はPOSTリクエストを処理する関数
