@@ -133,7 +133,7 @@ func main() {
 			w.WriteHeader(http.StatusMethodNotAllowed)
 		}
 	})))
-	
+
 	port := os.Getenv("PORT")
 	if port == "" {
 		port = "8080"
