@@ -3,6 +3,7 @@ package handlers
 import (
 	"db/database"
 	"db/model"
+	"encoding/base64"
 	"encoding/json"
 	"net/http"
 	"time"
@@ -69,6 +70,7 @@ func HandleSearchItems(w http.ResponseWriter, r *http.Request) {
 	var items []model.Item
 	for rows.Next() {
 		var item model.Item
+		var fileData []byte     // ファイルデータを一時的に保存するためのバイトスライス
 		var createdAtStr string // DATETIME 型のデータを文字列として読み込む
 		var updatedAtStr string
 		err := rows.Scan(
@@ -77,7 +79,7 @@ func HandleSearchItems(w http.ResponseWriter, r *http.Request) {
 			&item.Content,
 			&item.Category,
 			&item.Chapter,
-			&item.File,
+			&fileData, // ファイルデータをバイトスライスとしてスキャン
 			&item.CreatedBy,
 			&item.CreatedByName,
 			&createdAtStr, // 文字列として読み込む
@@ -102,6 +104,7 @@ func HandleSearchItems(w http.ResponseWriter, r *http.Request) {
 
 		item.CreatedAt = createdAt
 		item.UpdatedAt = updatedAt
+		item.File = base64.StdEncoding.EncodeToString(fileData) // バイトスライスをBase64エンコードされた文字列に変換
 		items = append(items, item)
 	}
 
