@@ -3,11 +3,11 @@ package handlers
 import (
 	"db/database"
 	"db/model"
+	"encoding/base64"
 	"encoding/json"
 	"net/http"
 )
 
-// HandleAddItem はPOSTリクエストを処理する関数
 func HandleAddItem(w http.ResponseWriter, r *http.Request) {
 	// HTTPメソッドがPOSTでない場合はエラーを返す
 	if r.Method != http.MethodPost {
@@ -28,6 +28,13 @@ func HandleAddItem(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	// Base64エンコードされた画像データをデコード
+	decodedImage, err := base64.StdEncoding.DecodeString(data.File)
+	if err != nil {
+		logAndSendError(w, "Failed to decode image data", http.StatusBadRequest, err)
+		return
+	}
+
 	// ULIDを生成
 	id, err := generateULID()
 	if err != nil {
@@ -43,7 +50,7 @@ func HandleAddItem(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// データベースにデータを挿入
-	_, err = stmt.Exec(id, data.Title, data.Content, data.Category, data.Chapter, data.File, data.CreatedBy, data.CreatedByName)
+	_, err = stmt.Exec(id, data.Title, data.Content, data.Category, data.Chapter, decodedImage, data.CreatedBy, data.CreatedByName) // decodedImageを挿入
 	if err != nil {
 		logAndSendError(w, "Failed to execute SQL statement", http.StatusInternalServerError, err)
 		return
