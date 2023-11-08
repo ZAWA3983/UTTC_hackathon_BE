@@ -8,7 +8,7 @@ type Item struct {
 	Content       string    `json:"content"`
 	Category      string    `json:"category"`
 	Chapter       string    `json:"chapter"`
-	File          string    `json:"file"`
+	File          []byte    `json:"fileBinaryData"`
 	CreatedBy     string    `json:"createdBy"`
 	CreatedByName string    `json:"createdByName"`
 	CreatedAt     time.Time `json:"createdAt"`
