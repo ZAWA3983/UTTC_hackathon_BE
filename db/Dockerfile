@@ -1,13 +1,11 @@
 # ベースとなるDockerイメージを選択 (Goのバージョンを指定)
-FROM golang:1.17
+FROM golang:1.21
 
 # コンテナ内の作業ディレクトリを設定
 WORKDIR /app
 
 # ソースコードをコピー
-COPY main.go .
-COPY go.mod .
-COPY go.sum .
+COPY . .
 
 # Goアプリケーションをビルド
 RUN go build -o app main.go
