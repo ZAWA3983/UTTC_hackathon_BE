@@ -6,6 +6,7 @@ import (
 	"encoding/base64"
 	"encoding/json"
 	"net/http"
+	"strings"
 )
 
 func HandleAddItem(w http.ResponseWriter, r *http.Request) {
@@ -29,7 +30,9 @@ func HandleAddItem(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Base64エンコードされた画像データをデコード
-	decodedImage, err := base64.StdEncoding.DecodeString(data.File)
+	// プレフィックスをカンマで分割して、後半の部分だけをデコードする
+	b64data := strings.Split(data.File, ",")[1]
+	decodedImage, err := base64.StdEncoding.DecodeString(b64data)
 	if err != nil {
 		logAndSendError(w, "Failed to decode image data", http.StatusBadRequest, err)
 		return
