@@ -3,7 +3,6 @@ package handlers
 import (
 	"db/database"
 	"db/model"
-	"encoding/base64"
 	"encoding/json"
 	"net/http"
 	"time"
@@ -103,7 +102,6 @@ func HandleSearchItems(w http.ResponseWriter, r *http.Request) {
 
 		item.CreatedAt = createdAt
 		item.UpdatedAt = updatedAt
-		item.File = base64.StdEncoding.EncodeToString(item.File) // バイナリデータをBase64エンコードされた文字列に変換
 		items = append(items, item)
 	}
 
