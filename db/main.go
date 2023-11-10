@@ -62,7 +62,7 @@ func main() {
 			return
 		case http.MethodPost:
 			// POSTリクエストの処理
-			handlers.HandleSearchItems(w, r)
+			handlers.HandleSearchMyItems(w, r)
 		default:
 			// サポートされていないメソッドの場合、405 Method Not Allowedを返す
 			w.WriteHeader(http.StatusMethodNotAllowed)
