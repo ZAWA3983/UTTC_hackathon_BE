@@ -22,12 +22,6 @@ func HandleAddItem(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// バリデーション: 必要なフィールドの欠落をチェック
-	if data.Title == "" || data.Category == "" || data.Chapter == "" || data.CreatedBy == "" {
-		logAndSendError(w, "Required fields are missing", http.StatusBadRequest, nil)
-		return
-	}
-
 	// ULIDを生成
 	id, err := generateULID()
 	if err != nil {
@@ -36,14 +30,14 @@ func HandleAddItem(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// 挿入用のSQLクエリを作成
-	stmt, err := database.Db.Prepare("INSERT INTO items (id, title, content, category, chapter, file, createdBy, createdByName) VALUES (?, ?, ?, ?, ?, ?, ?, ?)")
+	stmt, err := database.Db.Prepare("INSERT INTO items (id, title, content, category, chapter, file, fileType, createdBy, createdByName) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)")
 	if err != nil {
 		logAndSendError(w, "Failed to prepare SQL statement", http.StatusInternalServerError, err)
 		return
 	}
 
 	// データベースにデータを挿入
-	_, err = stmt.Exec(id, data.Title, data.Content, data.Category, data.Chapter, data.File, data.CreatedBy, data.CreatedByName)
+	_, err = stmt.Exec(id, data.Title, data.Content, data.Category, data.Chapter, data.File, data.FileType, data.CreatedBy, data.CreatedByName)
 	if err != nil {
 		logAndSendError(w, "Failed to execute SQL statement", http.StatusInternalServerError, err)
 		return
