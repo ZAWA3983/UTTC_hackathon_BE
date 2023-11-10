@@ -84,7 +84,6 @@ func HandleSearchMyItems(w http.ResponseWriter, r *http.Request) {
 			&item.Category,
 			&item.Chapter,
 			&item.File,
-			&item.FileType, // fileType を読み込む
 			&item.CreatedBy,
 			&item.CreatedByName,
 			&createdAtStr, // 文字列として読み込む
