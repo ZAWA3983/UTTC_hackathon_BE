@@ -17,6 +17,33 @@ func init() {
 }
 
 func main() {
+
+	http.Handle("/api/categoryNames", cors.CORS(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Content-Type", "application/json")
+		switch r.Method {
+		case http.MethodOptions:
+			w.WriteHeader(http.StatusOK)
+			return
+		case http.MethodGet:
+			handlers.HandleGetCategoryNames(w)
+		default:
+			w.WriteHeader(http.StatusMethodNotAllowed)
+		}
+	})))
+
+	http.Handle("/api/chapterNames", cors.CORS(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Content-Type", "application/json")
+		switch r.Method {
+		case http.MethodOptions:
+			w.WriteHeader(http.StatusOK)
+			return
+		case http.MethodGet:
+			handlers.HandleGetChapterNames(w)
+		default:
+			w.WriteHeader(http.StatusMethodNotAllowed)
+		}
+	})))
+
 	// CORSミドルウェアを適用
 	http.Handle("/api/addItem", cors.CORS(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		// 通常のリクエストの処理
