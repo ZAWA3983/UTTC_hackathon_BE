@@ -28,14 +28,26 @@ func HandleUpdateItems(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// アイテムを更新するSQLクエリを作成
-	stmt, err := database.Db.Prepare("UPDATE items SET title = ?, content = ?, category = ?, chapter = ?, file = ?, fileType = ?, createdByName = ?, updatedAt = NOW() WHERE id = ?")
+	stmt, err := database.Db.Prepare(`
+		UPDATE items 
+		SET title = ?, content = ?, category = ?, chapter = ?, 
+			file = IF(LENGTH(?) > 0, ?, file), 
+			fileType = IF(LENGTH(?) > 0, ?, fileType), 
+			createdByName = ?, 
+			updatedAt = NOW() 
+		WHERE id = ?`)
 	if err != nil {
 		logAndSendError(w, "Failed to prepare SQL statement", http.StatusInternalServerError, err)
 		return
 	}
 
 	// データベースのアイテムを更新
-	_, err = stmt.Exec(data.Title, data.Content, data.Category, data.Chapter, data.File, data.FileType, data.CreatedByName, data.ID)
+	_, err = stmt.Exec(
+		data.Title, data.Content, data.Category, data.Chapter,
+		data.File, data.File, // IF(LENGTH(?) > 0, ?, file)
+		data.FileType, data.FileType, // IF(LENGTH(?) > 0, ?, fileType)
+		data.CreatedByName, data.ID,
+	)
 	if err != nil {
 		logAndSendError(w, "Failed to execute SQL statement", http.StatusInternalServerError, err)
 		return
